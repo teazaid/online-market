@@ -1,6 +1,7 @@
 package com.online.market.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by Alexander on 04.06.2017.
@@ -19,6 +20,16 @@ public class UserBuilder implements Builder<User> {
 
     public UserBuilder login(String login) {
         user.setLogin(login);
+        return this;
+    }
+
+    public UserBuilder id(long id) {
+        user.setId(id);
+        return this;
+    }
+
+    public UserBuilder uuid(String uuid) {
+        user.setUuid(uuid);
         return this;
     }
 
@@ -54,6 +65,11 @@ public class UserBuilder implements Builder<User> {
 
     public UserBuilder phoneNumber(String phoneNuber) {
         user.setPhoneNumber(phoneNuber);
+        return this;
+    }
+
+    public UserBuilder generateUuid() {
+        user.setUuid(UUID.randomUUID().toString());
         return this;
     }
 

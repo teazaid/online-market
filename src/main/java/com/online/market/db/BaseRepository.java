@@ -1,10 +1,8 @@
 package com.online.market.db;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -21,23 +19,26 @@ abstract class BaseRepository<T> {
         return dataSource;
     }
 
-    public T executeQuery(String query, Function<ResultSet, T> fun) {
-        T result = null;
+    public List<T> executeQuery(String query, List<String> params, Function<ResultSet, List<T>> fun) {
+        List<T> result = null;
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
-            statement = connection.createStatement();
+            statement = connection.prepareStatement(query);
+            for(int i = 1; i <= params.size(); i++) {
+                statement.setString(i, params.get(i - 1));
+            }
 
-            resultSet = statement.executeQuery(query);
+            resultSet = statement.executeQuery();
             result = fun.apply(resultSet);
 
             connection.commit();
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
         } finally {
             closeResultSet(resultSet);
             closeStatement(statement);

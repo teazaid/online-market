@@ -6,6 +6,9 @@ import java.util.Date;
  * Created by Alexander on 04.06.2017.
  */
 public class User {
+    private long id;
+    private String uuid;
+
     private String login;
 
     private String firstName;
@@ -82,5 +85,21 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }
