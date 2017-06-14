@@ -1,5 +1,7 @@
 package com.online.market.http.validation;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +18,7 @@ public class AgeValidator implements Validator<Date> {
         String partsCurrentDate[] = currentDate.split("\\-");
         String partsBirthday[] = birthDay.split("\\-");
 
-        if (!dateCompare(partsCurrentDate, partsBirthday)) throw new UnsupportedOperationException();  // need help to choose a kind of exception =)
+        if (!dateCompare(partsCurrentDate, partsBirthday)) throw new InvalidArgumentException();  // need help to choose a kind of exception =)
         else return birthday;
 
         // TODO person should be 18 years old
